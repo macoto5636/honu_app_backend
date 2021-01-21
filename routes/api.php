@@ -17,3 +17,26 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::group(['prefix'=>'auth'], function(){
+    Route::post('login', [App\Http\Controllers\UserController::class, 'login']);
+    Route::post('register', [App\Http\Controllers\UserController::class, 'register']);
+    Route::post('logout', [App\Http\Controllers\UserController::class, 'logout'])->middleware('auth:api');
+});
+
+Route::group(['prefix'=>'shop'], function(){
+    Route::get('get/{id}', [App\Http\Controllers\ShopController::class, 'getShops']);
+});
+
+Route::group(['prefix'=>'friend','middleware' => 'auth:api'], function(){
+    Route::get('{id}', [App\Http\Controllers\FriendController::class, 'getUserFriend']);
+    Route::post('store', [App\Http\Controllers\FriendController::class, 'addUserFriend']);
+    Route::get('delete/{id}', [App\Http\Controllers\FriendController::class, 'deleteUserFriend']);
+});
+
+Route::group(['prefix'=>'memory','middleware' => 'auth:api'], function(){
+    Route::get('get', [App\Http\Controllers\MemoryController::class, 'getMemories']);
+    Route::get('get/other', [App\Http\Controllers\MemoryController::class, 'getOtherMemories']);
+    Route::post('search', [App\Http\Controllers\MemoryController::class, 'searchMemories']);
+    Route::post('store',[App\Http\Controllers\MemoryController::class, 'addMemory']);
+});
