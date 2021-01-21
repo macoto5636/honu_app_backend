@@ -20,12 +20,14 @@ class CreateShopsTable extends Migration
             $table->dateTime('open_time');
             $table->dateTime('close_time');
             $table->string('regular_holiday');
-            $table->integer('shop_tel');
+            $table->unsignedBigInteger('shop_tel');
             $table->string('shop_adress');
             $table->double('shop_latitude', 10, 7);
             $table->double('shop_longitude', 10, 7);
             $table->unsignedBigInteger('memory_id')->nullable();
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->string('image');
+            $table->string('detail');
             $table->timestamps();
 
             $table->foreign('user_id')

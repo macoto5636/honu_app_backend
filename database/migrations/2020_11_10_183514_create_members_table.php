@@ -15,13 +15,8 @@ class CreateMembersTable extends Migration
     {
         Schema::create('members', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('friend_id')->nullable();
+            $table->string('member_name');
             $table->unsignedBigInteger('memory_id');
-
-            $table->foreign('friend_id')
-                    ->references('id')
-                    ->on('friends')
-                    ->onDelete('set null');
 
             $table->foreign('memory_id')
                     ->references('id')

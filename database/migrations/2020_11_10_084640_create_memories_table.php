@@ -17,17 +17,18 @@ class CreateMemoriesTable extends Migration
             $table->id();
             $table->string('memory_title');
             $table->integer('public_flag');
-            $table->double('memory_latitude', 10, 7);
-            $table->double('memory_longitude', 10, 7);
+            $table->double('memory_latitude', 20, 14);
+            $table->double('memory_longitude', 20, 14);
             $table->string('memory_adress');
             $table->string('thumbnail_path');
             $table->integer('memory_good');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('category_id');
-            $table->string('memory_music');
-            $table->string('time_message_video_path');
-            $table->dateTime('playback_at');
+            $table->string('memory_music')->nullable();
+            $table->string('time_message_video_path')->nullable();
+            $table->dateTime('playback_at')->nullable();
             $table->dateTime('reservation_at');
+            $table->dateTime('scheduled_at');
             $table->timestamps();
 
             $table->foreign('user_id')
