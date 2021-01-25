@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use Auth;
 
 
@@ -81,5 +82,64 @@ class UserController extends Controller
         ]);
       }
      }
+
+     /**
+      * ユーザー名変更
+      */
+      public function updateUsername(Request $request){
+        $user = User::find(Auth::id());
+
+        $user->user_name = $request['user_name'];
+        $user->save();
+
+        return $user;
+      }
+
+      /**
+       * メールアドレス変更
+       */
+      public function updateEmail(Request $request){
+        $user = User::find(Auth::id());
+
+        $user->email = $request['email'];
+        $user->save();
+
+        return $user;
+      }
+
+      /**
+       * パスワード変更
+       */
+      public function updatePassword(Request $request){
+        $user = User::find(Auth::id());
+        if($user->password == Hash::make($request['old_password'])){
+          $user->password = Hash::make($request['new_password']);
+          $user->save();
+          return 'success';
+        }
+
+        return 'faild';
+      }
+
+      /**
+       * パスワード変更
+       */
+      public function updateImage(Request $request){
+        $user = User::find(Auth::id());
+        $user->profile_image_path = $request['image_url'];
+        $user->save();
+        return $user;
+      }
+
+
+      /**
+       * アカウント削除
+       */
+      public function deleteUser(){
+        $user = User::find(Auth::id());
+        $user->delete();
+        
+        return $user;
+      }
 
 }

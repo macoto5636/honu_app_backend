@@ -18,6 +18,7 @@ class MemoryController extends Controller
         $user = Auth::id();
         $memories = Memory::where('user_id', $user)->get();
 
+
         $data = [];
         foreach($memories as $memory){
             $videos = $memory->video;
@@ -163,5 +164,15 @@ class MemoryController extends Controller
         }
 
         return $id;
+    }
+
+    /**
+     * 思い出削除
+     */
+    public function deleteMemory($id){
+        $memory = Memory::find($id);
+        $memory->delete();
+
+        return $memory;
     }
 }
