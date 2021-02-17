@@ -167,6 +167,16 @@ class MemoryController extends Controller
     }
 
     /**
+     * いいね更新
+     */
+    public function updateFavorite($id,$num){
+        $memory = Memory::find($id);
+        $memory->memory_good = $memory->memory_good + $num;
+        $memory->save();
+        return $memory;
+    }
+
+    /**
      * 思い出削除
      */
     public function deleteMemory($id){

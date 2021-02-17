@@ -47,4 +47,5 @@ Route::group(['prefix'=>'memory','middleware' => 'auth:api'], function(){
     Route::get('delete/{id}', [App\Http\Controllers\MemoryController::class, 'deleteMemory']);
     Route::post('search', [App\Http\Controllers\MemoryController::class, 'searchMemories']);
     Route::post('store',[App\Http\Controllers\MemoryController::class, 'addMemory']);
+    Route::get('update/{id}/{num}', [App\Http\Controllers\MemoryController::class, 'updateFavorite']);
 });
